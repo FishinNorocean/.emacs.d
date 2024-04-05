@@ -6,10 +6,13 @@
 
 (setq-default tab-width 4)
 (electric-pair-mode t)
+(setq initial-scratch-message "Rock\'n\'Roll ain't noise pollution.")
 (add-hook 'prog-mode-hook #'show-paren-mode)
 (column-number-mode t)
 (global-auto-revert-mode t)
 (delete-selection-mode t)
+;; (setq shell-command-prompt-show-cwd nil)
+;; (setq eshell-echo-input nil)
 (setq inhibit-startup-message t)    ;; Hide the startup message
 (setq-default python-indent 4)
 (setq c-basic-offset 4)
@@ -20,12 +23,13 @@
 (setq display-line-numbers-type 'relative)
 ;; (menu-bar-mode -1)
 (tool-bar-mode -1)
+;; (global-tab-line-mode)
 (when (display-graphic-p) (toggle-scroll-bar -1))
 ;; (add-to-list 'default-frame-alist '(width . 90))
 ;; (add-to-list 'default-frame-alist '(height . 55))
 (when (display-graphic-p) (toggle-frame-maximized))
 
-(put 'scroll-left 'disabled nil)
+;; (put 'scroll-left 'disabled nil)
 
 (savehist-mode 1)
 (setq savehist-file "~/.emacs.d/.savehist")
@@ -48,8 +52,8 @@
 (global-set-key (kbd "<end>") nil)
 (define-key function-key-map (kbd "<end>") 'event-apply-super-modifier)
 
-(global-set-key [wheel-right] 'scroll-left)
-(global-set-key [wheel-left] 'scroll-right)
+;; (global-set-key [wheel-right] 'scroll-left)
+;; (global-set-key [wheel-left] 'scroll-right)
 
 ;; Shortcuts
 (global-set-key (kbd "C-j") nil)
@@ -67,6 +71,14 @@
          (setq mac-command-modifier 'meta)
          (setq mac-option-modifier 'super)
 		 )))
+(global-set-key (kbd "C-t") 'shell-other-window)
+
+(setq-default display-fill-column-indicator-column 80)
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (kill-buffer-if-exists "*scratch*")))
 
 ;; Faster move cursor
 (global-set-key (kbd "M-n") 'next-ten-lines)

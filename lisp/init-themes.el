@@ -13,20 +13,23 @@
 (if (display-graphic-p)
 	(progn
 	  (setq custom-file custom-gui-file)
+	  (use-package all-the-icons
+		:ensure t)
 	  (use-package doom-themes
 		:ensure t
 		:config
 		;; Global settings (defaults)
-		(setq doom-themes-enable-bold nil    ; if nil, bold is universally disabled
+		(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
 			  doom-themes-enable-italic t) ; if nil, italics is universally disabled
-		(load-theme 'doom-monokai-octagon t)
+		(load-theme 'doom-dracula t)
+		(custom-set-faces '(region ((t (:background "lightgoldenrod2")))))
 
 		;; Enable flashing mode-line on errors
 		;; (doom-themes-visual-bell-config)
 		;; Enable custom neotree theme (all-the-icons must be installed!)
 		;; (doom-themes-neotree-config)
 		;; or for treemacs users
-		(setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+		(setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
 		(doom-themes-treemacs-config)
 		;; Corrects (and improves) org-mode's native fontification.
 		(doom-themes-org-config)))
@@ -35,7 +38,11 @@
 	(add-to-list 'load-path (expand-file-name "themes" user-emacs-directory))
 	(add-to-list 'custom-theme-load-path
 				 (expand-file-name "themes" user-emacs-directory))
-	(load-theme 'monokai-pro t)))
+	(use-package doom-themes
+	  :ensure t
+	  :config
+	  (load-theme 'doom-monokai-pro t))
+	))
 
 (when *is-a-mac*
   (use-package all-the-icons
@@ -73,6 +80,8 @@
 
   ;; ;; Variables configured via the interactive 'customize' interface
   )
+
+(set-frame-font "MesloLGS NF 16")
 
 (when (file-exists-p custom-file)
   (load custom-file))
