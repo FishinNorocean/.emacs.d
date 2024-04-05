@@ -641,32 +641,32 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; (use-package undo-tree
-;;   :ensure t
-;;   :init (global-undo-tree-mode))
-(if *is-a-mac* 
-    (use-package undo-tree
-      :ensure t
-      :config 
-      (global-undo-tree-mode)
-      :after hydra
-      :hydra (hydra-undo-tree (:hint nil)
-                              "
-  _p_: undo  _n_: redo _s_: save _l_: load   "
-                              ("p"   undo-tree-undo)
-                              ("n"   undo-tree-redo)
-                              ("s"   undo-tree-save-history)
-                              ("l"   undo-tree-load-history)
-                              ("u"   undo-tree-visualize "visualize" :color blue)
-                              ("q"   nil "quit" :color blue))
-      :bind
-      (("C-x C-h u" . hydra-undo-tree/body))
-      :custom
-      (undo-tree-auto-save-history nil))
-  (use-package undo-tree
-    :ensure t
-    :config 
-    (global-undo-tree-mode)))
+(use-package undo-tree
+  :ensure t
+  :config (global-undo-tree-mode))
+;; (if *is-a-mac* 
+;;     (use-package undo-tree
+;;       :ensure t
+;;       :config 
+;;       (global-undo-tree-mode)
+;;       :after hydra
+;;       :hydra (hydra-undo-tree (:hint nil)
+;;                               "
+;;   _p_: undo  _n_: redo _s_: save _l_: load   "
+;;                               ("p"   undo-tree-undo)
+;;                               ("n"   undo-tree-redo)
+;;                               ("s"   undo-tree-save-history)
+;;                               ("l"   undo-tree-load-history)
+;;                               ("u"   undo-tree-visualize "visualize" :color blue)
+;;                               ("q"   nil "quit" :color blue))
+;;       :bind
+;;       (("C-x C-h u" . hydra-undo-tree/body))
+;;       :custom
+;;       (undo-tree-auto-save-history nil))
+;;   (use-package undo-tree
+;;     :ensure t
+;;     :config 
+;;     (global-undo-tree-mode)))
 
 (global-set-key (kbd "C-x u") 'undo-tree-visualize)
 (global-set-key (kbd "C-/") 'undo-tree-undo)
