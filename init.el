@@ -5,6 +5,7 @@
 
 ;;; Code:
 ;; (setq debug-on-error t)
+(setq init-file-debug nil)
 
 (let ((minver "25.1"))
   (when (version< emacs-version minver)
@@ -418,7 +419,8 @@
 (use-package counsel-projectile
   :ensure t
   :after (projectile)
-  :init (counsel-projectile-mode))
+  :config (counsel-projectile-mode)
+  )
 
 ;; slime
 (setq inferior-lisp-program "sbcl")
@@ -585,8 +587,10 @@ _Q_: Disconnect     _sl_: List locals        _bl_: Set log message
 
 (use-package highlight-symbol
   :ensure t
-  :init (highlight-symbol-mode)
+  ;; :init (if *is-a-mac* (highlight-symbol-mode))
+  :config (highlight-symbol-mode)
   :bind ("<f3>" . highlight-symbol))
+
 
 ;; My mode about CALPUFF
 ;; (load-file "~/.emacs.d/mymode/inp-mode.el")
@@ -643,7 +647,7 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 
 (use-package undo-tree
   :ensure t
-  :init (global-undo-tree-mode)
+  :config (global-undo-tree-mode)
   :after hydra
   :hydra (hydra-undo-tree (:hint nil)
   "

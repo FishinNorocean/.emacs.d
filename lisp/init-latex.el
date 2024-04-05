@@ -35,9 +35,9 @@
 (use-package pdf-tools
   :if (display-graphic-p)
   :ensure t
-  :init
-  (pdf-loader-install))
-  (add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1)))
+  :config
+  (if *is-a-mac* (pdf-loader-install))
+  (add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1))))
 
 (defun pdf-view-kill-rmn-ring-save ()
   "Copy the region to the `kill-ring' after remove all newline characters."
