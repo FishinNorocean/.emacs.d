@@ -397,7 +397,7 @@
   (setq dashboard-banner-logo-title "Think good. Do better. Be the best.")
   (setq dashboard-projects-backend 'projectile)
   ;; (setq dashboard-startup-banner 1)
-  (setq dashboard-startup-banner (expand-file-name "bridge.jpg" user-emacs-directory))
+  (setq dashboard-startup-banner (expand-file-name "marisa.png" user-emacs-directory))
   (setq dashboard-items '((recents  . 8)
 						  (projects . 10)
 						  (bookmarks . 5)))
@@ -647,7 +647,7 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 
 (use-package undo-tree
   :ensure t
-  :config (global-undo-tree-mode)
+  :init (if *is-a-mac* (global-undo-tree-mode))
   :after hydra
   :hydra (hydra-undo-tree (:hint nil)
   "
@@ -663,8 +663,8 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   :custom
   (undo-tree-auto-save-history nil))
 
-(global-set-key (kbd "C-x u") 'hydra-undo-tree/body)
-(global-set-key (kbd "C-/") 'hydra-undo-tree/undo-tree-undo)
+(global-set-key (kbd "C-x u") 'undo-tree-visualize)
+(global-set-key (kbd "C-/") 'undo-tree-undo)
 
 ;; sml-mode -- smart mode line
 (use-package smart-mode-line
@@ -672,15 +672,19 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   :init
   (setq sml/no-confirm-load-theme t)  ; avoid asking when startup
   :config
+  (setq display-time-format "%a %b %d %R") ; 设置时间格式为24小时制的小时、分钟和秒
+  (display-time-mode 1)
   (setq rm-blacklist
 		(format "^ \\(%s\\)$"
 				(mapconcat #'identity
                            '("Projectile.*" "company.*" "Google"
 							 "Undo-Tree" "counsel" "ivy" "yas" "WK")
                            "\\|")))
-  ;; (setq sml/use-projectile-p 'before-prefixes)
-  ;; (setq sml/all-the-icons-symlink t)
+  ; (setq sml/use-projectile-p 'before-prefixes)
+  (setq sml/all-the-icons-symlink t)
   (sml/setup))
+
+;; (require 'init-modeline)
 
 (when (display-graphic-p)
    (require 'init-latex)
