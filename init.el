@@ -172,14 +172,18 @@
   (dirvish-side-follow-mode) ; similar to `treemacs-follow-mode'
   (setq dirvish-mode-line-format
         '(:left (sort symlink) :right (omit yank index)))
-  (setq dirvish-attributes
+  (if (display-graphic-p)
+	  (setq dirvish-attributes
         '(all-the-icons file-time file-size collapse subtree-state vc-state git-msg))
+	(setq dirvish-attributes
+        '(file-time file-size collapse subtree-state vc-state git-msg)))
   ;; (setq delete-by-moving-to-trash t)
   (if *is-a-mac* (setq dired-listing-switches "-l -A -h")
 	(setq dired-listing-switches
           "-l --almost-all --human-readable --group-directories-first --no-group"))
   :bind ; Bind `dirvish|dirvish-side|dirvish-dwim' as you see fit
   (("C-c f" . dirvish-fd)
+   ("C-x d" . dirvish)
    :map dirvish-mode-map ; Dirvish inherits `dired-mode-map'
    ("a"   . dirvish-quick-access)
    ("f"   . dirvish-file-info-menu)

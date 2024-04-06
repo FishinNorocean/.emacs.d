@@ -29,3 +29,4 @@ projects
 games/
 .cask/*
 eln-cache/*
+dirvish/*
