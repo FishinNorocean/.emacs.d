@@ -157,8 +157,9 @@
    ("C-h B" . embark-bindings))) ;; alternative for `describe-bindings'
 
 (use-package dirvish
+  :ensure t
   :init
-  (dirvish-override-dired-mode)
+  (if *is-a-mac* (dirvish-override-dired-mode))
   :custom
   (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
    '(("h" "~/"                          "Home")
@@ -169,6 +170,7 @@
 	 ))
   :config
   ;; (dirvish-peek-mode) ; Preview files in minibuffer
+  (if (not *is-a-mac*) (dirvish-override-dired-mode))
   (dirvish-side-follow-mode) ; similar to `treemacs-follow-mode'
   (setq dirvish-mode-line-format
         '(:left (sort symlink) :right (omit yank index)))
