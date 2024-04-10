@@ -66,6 +66,11 @@
       (set-visited-file-name new-name)
       (rename-buffer new-name))))
 
+(defun swk/touchfile (new-file-name)
+  "Touch file NEW-FILE-NAME."
+  (interactive "sTouch what: ")
+  (shell-command (concat "touch " new-file-name)))
+
 ;; Browse current HTML file
 
 (defun browse-current-file ()
@@ -157,11 +162,11 @@
   (interactive)
   (ansi-term "/bin/zsh"))
 
-(defun shell-other-window ()
+(defun swk/new-terminal ()
   "Open shell in other window."
   (interactive)
-  (split-window-right)
-  (other-window 1)
+  ; (split-window-right)
+  ; (other-window 1)
   (ansi-term "/bin/zsh"))
 
 (defun list-buffers-other-window()
@@ -170,13 +175,13 @@
   (list-buffers)
   (other-window 1))
 
-(when *is-a-mac*
-  (defun pv/osx-get-keychain-password (account-name)
-	"Gets ACCOUNT-NAME keychain password from OS X Keychain."
-	(let ((cmd (concat "security 2>&1 >/dev/null find-generic-password -ga '" account-name "'")))
-	  (let ((passwd (shell-command-to-string cmd)))
-		(when (string-match (rx "\"" (group (0+ (or (1+ (not (any "\"" "\\"))) (seq "\\" anything)))) "\"") passwd)
-		  (match-string 1 passwd))))))
+;; (when *is-a-mac*
+;;   (defun pv/osx-get-keychain-password (account-name)
+;; 	"Gets ACCOUNT-NAME keychain password from OS X Keychain."
+;; 	(let ((cmd (concat "security 2>&1 >/dev/null find-generic-password -ga '" account-name "'")))
+;; 	  (let ((passwd (shell-command-to-string cmd)))
+;; 		(when (string-match (rx "\"" (group (0+ (or (1+ (not (any "\"" "\\"))) (seq "\\" anything)))) "\"") passwd)
+;; 		  (match-string 1 passwd))))))
 
 ;; SSH remote
 (defun connect-cec-erver ()
@@ -186,7 +191,6 @@
 ;;   (interactive)
 ;;   (dired "/ssh:pavin@172.16.172.133:/home/pavin/Code/"))
 ;; (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
-
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

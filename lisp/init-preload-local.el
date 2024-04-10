@@ -71,7 +71,9 @@
          (setq mac-command-modifier 'meta)
          (setq mac-option-modifier 'super)
 		 )))
-(global-set-key (kbd "C-t") 'shell-other-window)
+(global-set-key (kbd "C-t") nil)
+(global-set-key (kbd "C-t C-t") 'swk/new-terminal)
+(global-set-key (kbd "C-t C-s") 'toggle-window-split)
 
 (setq-default display-fill-column-indicator-column 80)
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)

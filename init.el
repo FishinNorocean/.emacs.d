@@ -15,8 +15,6 @@
 (setenv "EMACS_ZSH" "true")
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))
-(if *is-a-mac* (defconst *trash-dir* "~/.Trash/")
-  (defconst *trash-dir* "~/.local/share/Trash"))
 
 ;;----------------------------------------------------------------------------
 ;; Adjust garbage collection thresholds during startup, and thereafter
@@ -101,7 +99,7 @@
 		(setq centaur-tabs-set-bar 'over)
 		;; Note: If you're not using Spacmeacs, in order for the underline to display
 		;; correctly you must add the following line:
-		;; (setq x-underline-at-descent-line t)
+		(setq x-underline-at-descent-line t)
 		;; (setq centaur-tabs-set-close-button nil) ;; Uncomment it if you wanna disable the close button.
 		(setq centaur-tabs-set-modified-marker t)
 		(defun centaur-tabs-hide-tab (x)
@@ -117,25 +115,63 @@
 			 (string-prefix-p "*Compile-Log*" name)
 			 (string-prefix-p "*lsp" name)
 			 (string-prefix-p "*company" name)
-			 (string-prefix-p "*Flycheck" name)			 (string-prefix-p "*tramp" name)
+			 (string-prefix-p "*Flycheck" name)
+			 (string-prefix-p "*tramp" name)
 			 (string-prefix-p " *Mini" name)
 			 (string-prefix-p "*help" name)
 			 (string-prefix-p "*straight" name)
 			 (string-prefix-p " *temp" name)
 			 (string-prefix-p "*Help" name)
 			 (string-prefix-p "*mybuf" name)
-
+			 (string-prefix-p "*Calc" name)
+			 (string-prefix-p "*dashboard" name)
 			 ;; Is not magit buffer.
 			 (and (string-prefix-p "magit" name)
 				  (not (file-name-extension name)))
 			 )))
-		(centaur-tabs-enable-buffer-alphabetical-reordering)
-		(setq centaur-tabs-adjust-buffer-order t)
+		(defun centaur-tabs-buffer-groups ()
+		  "Officially recommended tabs groups configuration"
+		  (list
+		   (cond
+			((or (string-equal "*" (substring (buffer-name) 0 1))
+				 (memq major-mode '(magit-process-mode
+									magit-status-mode
+									magit-diff-mode
+									magit-log-mode
+									magit-file-mode
+									magit-blob-mode
+									magit-blame-mode
+									)))
+			 "Emacs")
+			((derived-mode-p 'prog-mode)
+			 "Editing")
+			((derived-mode-p 'dired-mode)
+			 "Dired")
+			((memq major-mode '(helpful-mode
+								help-mode))
+			 "Help")
+			((memq major-mode '(org-mode
+								org-agenda-clockreport-mode
+								org-src-mode
+								org-agenda-mode
+								org-beamer-mode
+								org-indent-mode
+								org-bullets-mode
+								org-cdlatex-mode
+								org-agenda-log-mode
+								diary-mode))
+			 "OrgMode")
+			(t
+			 (centaur-tabs-get-group-name (current-buffer))))))
+		; (centaur-tabs-enable-buffer-alphabetical-reordering)
+		; (setq centaur-tabs-adjust-buffer-order t)
 		;; (centaur-tabs-group-by-projectile-project)
 		:bind
 		;; ("C-<prior>" . centaur-tabs-backward)
 		;; ("C-<next>" . centaur-tabs-forward)
-		("C-x b" . centaur-tabs-ace-jump))
+		("C-x b" . centaur-tabs-ace-jump)
+		("C-x C-b" . centaur-tabs-counsel-switch-group))
+
 (use-package amx
   :ensure t
   :init (amx-mode))
@@ -161,13 +197,14 @@
   :init
   (if *is-a-mac* (dirvish-override-dired-mode))
   :custom
-  (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
+  (dirvish-quick-access-entries
    '(("h" "~/"                          "Home")
-     ("d" "~/Downloads/"                "Downloads")
-     ;("m" "/mnt/"                       "Drives")
+	 ("d" "~/Downloads/"                "Downloads")
+	;("m" "/mnt/"                       "Drives")
+	 ("e" "~/.emacs.d/"                 "emacs.d")
 	 ("p" "~/projects/"                 "Projects")
-     ;; ("t" *trash-dir*                   "TrashCan")
-	 ))
+     ("t" "~/.Trash/"                   "TrashCan")
+			))
   :config
   ;; (dirvish-peek-mode) ; Preview files in minibuffer
   (if (not *is-a-mac*) (dirvish-override-dired-mode))
@@ -179,8 +216,8 @@
         '(all-the-icons file-time file-size collapse subtree-state vc-state git-msg))
 	(setq dirvish-attributes
         '(file-time file-size collapse subtree-state vc-state git-msg)))
-  ;; (setq delete-by-moving-to-trash t)
-  (if *is-a-mac* (setq dired-listing-switches "-l -A -h")
+  (setq delete-by-moving-to-trash t)
+  (if *is-a-mac* (setq dired-listing-switches "-l -h")
 	(setq dired-listing-switches
           "-l --almost-all --human-readable --group-directories-first --no-group"))
   :bind ; Bind `dirvish|dirvish-side|dirvish-dwim' as you see fit
@@ -198,6 +235,8 @@
    ("TAB" . dirvish-subtree-toggle)
    ("M-f" . dirvish-history-go-forward)
    ("M-b" . dirvish-history-go-backward)
+   ("C-b" . dired-up-directory)
+   ("C-f" . dired-find-file)
    ("M-l" . dirvish-ls-switches-menu)
    ("M-m" . dirvish-mark-menu)
    ("M-t" . dirvish-layout-toggle)
@@ -498,7 +537,7 @@
   :commands (lsp lsp-deferred)
   :config
   (setq lsp-completion-provider :none)
-  (setq lsp-headerline-breadcrumb-enable t)
+  (setq lsp-headerline-breadcrumb-enable nil)
   ;; (add-to-list 'lsp-clients-clangd-args "--clang-tidy")
   :bind
   ("C-c l s" . lsp-ivy-workspace-symbol))
@@ -686,7 +725,7 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 ;; Python
 ;; (require 'init-python)
 (require 'init-programming)
-;; (require 'init-org)
+;(require 'init-org)
 
 ;; rainbow delimiters
 (use-package rainbow-delimiters

@@ -57,7 +57,7 @@
 (use-package pyvenv
   :ensure t
   :config
-  (setenv "WORKON_HOME" (expand-file-name "~/miniconda3/envs"))
+  (setenv "WORKON_HOME" (expand-file-name "~/.local/miniconda3/envs"))
   ;; (setq python-shell-interpreter "python3")
   (pyvenv-mode t)
   :hook
