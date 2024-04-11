@@ -204,6 +204,7 @@
 	 ("e" "~/.emacs.d/"                 "emacs.d")
 	 ("p" "~/projects/"                 "Projects")
      ("t" "~/.Trash/"                   "TrashCan")
+	 ("o" "~/org/"                      "Org notes")
 			))
   :config
   ;; (dirvish-peek-mode) ; Preview files in minibuffer
@@ -220,6 +221,7 @@
   (if *is-a-mac* (setq dired-listing-switches "-l -h")
 	(setq dired-listing-switches
           "-l --almost-all --human-readable --group-directories-first --no-group"))
+  (add-hook 'dired-mode (lambda () (display-line-numbers-mode -1)))
   :bind ; Bind `dirvish|dirvish-side|dirvish-dwim' as you see fit
   (("C-c f" . dirvish-fd)
    ("C-x d" . dirvish)
@@ -487,7 +489,7 @@
   :config
   (setq dashboard-banner-logo-title "Think good. Do better. Be the best.")
   (setq dashboard-projects-backend 'projectile)
-  ;; (setq dashboard-startup-banner 1)
+  ; (setq dashboard-startup-banner 1)
   (setq dashboard-startup-banner (expand-file-name "marisa.png" user-emacs-directory))
   (setq dashboard-items '((recents  . 8)
 						  (projects . 10)
@@ -648,8 +650,8 @@ _Q_: Disconnect     _sl_: List locals        _bl_: Set log message
 
 (use-package yasnippet
   :ensure t
-  ;; :init
-  ;; (yas-global-mode)
+  :init
+  (if *is-a-mac* (yas-global-mode))
   :hook
   (prog-mode . yas-minor-mode)
   :config
@@ -725,7 +727,7 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 ;; Python
 ;; (require 'init-python)
 (require 'init-programming)
-;(require 'init-org)
+(require 'init-org)
 
 ;; rainbow delimiters
 (use-package rainbow-delimiters

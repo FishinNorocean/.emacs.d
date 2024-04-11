@@ -19,6 +19,7 @@
 ;;(setq-default indent-tabs-mode nil)
 (setq make-backup-files nil) ; stop creating backup~ files
 (add-hook 'prog-mode-hook #'hs-minor-mode)
+;; (add-hook 'fundamental-mode-hook (lambda () (display-line-numbers-mode -1)))
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers-type 'relative)
 ;; (menu-bar-mode -1)
@@ -40,6 +41,8 @@
         search-ring
         regexp-search-ring))
 (setq enable-remote-dir-locals t)
+
+(global-set-key (kbd "C-x M-b") 'switch-to-buffer)
 
 ;;; keyboard setting
 (global-set-key (kbd "RET") 'newline-and-indent)
@@ -98,14 +101,15 @@
 (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eval-region)
 
 ;; hippie
-(global-set-key (kbd "C-<tab>") 'hippie-expand)
+; (global-set-key (kbd "C-<tab>") 'hippie-expand)
+
 
 ;; shell remove escape characters
-(defun preamble-regexp-alternatives (regexps)
-  "Return the alternation of a list of regexps."
-  (mapconcat (lambda (regexp)
-               (concat "\\(?:" regexp "\\)"))
-             regexps "\\|"))
+;; (defun preamble-regexp-alternatives (regexps)
+;;   "Return the alternation of a list of regexps."
+;;   (mapconcat (lambda (regexp)
+;;                (concat "\\(?:" regexp "\\)"))
+;;              regexps "\\|"))
 
 (defvar non-sgr-control-sequence-regexp nil
   "Regexp that matches non-SGR control sequences.")
