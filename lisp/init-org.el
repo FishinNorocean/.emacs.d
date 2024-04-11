@@ -11,7 +11,8 @@
 	(org-toggle-pretty-entities))
   :hook
   (org-mode-hook . yas-minor-mode)
-  (org-mode-hook . swk/init-org-hook))
+  ;(org-mode-hook . swk/init-org-hook)
+  )
 
 (provide 'init-org)
 

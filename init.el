@@ -651,7 +651,7 @@ _Q_: Disconnect     _sl_: List locals        _bl_: Set log message
 (use-package yasnippet
   :ensure t
   :init
-  (if *is-a-mac* (yas-global-mode))
+  ; (if *is-a-mac* (yas-global-mode))
   :hook
   (prog-mode . yas-minor-mode)
   :config
@@ -668,6 +668,8 @@ _Q_: Disconnect     _sl_: List locals        _bl_: Set log message
   (define-key yas-minor-mode-map (kbd "<tab>")  nil)
   :bind
   (:map yas-minor-mode-map ("C-<tab>" . yas-expand)))
+
+(yas-global-mode)
 
 (use-package yasnippet-snippets
   :ensure t
