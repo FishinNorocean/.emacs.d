@@ -6,7 +6,9 @@
 (use-package ess
   :ensure t
   :config
-  (setq inferior-ess-r-program "/Users/swk/.local/miniconda3/envs/R/bin/R"))
+  (setq inferior-ess-r-program
+		(concat "~/.local/miniconda3/envs/" pyvenv-virtual-env-name  "/bin/R")))
+  
 
 (provide 'init-stat)
 

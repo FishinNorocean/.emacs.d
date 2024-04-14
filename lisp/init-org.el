@@ -11,6 +11,7 @@
 	(org-toggle-pretty-entities))
   :hook
   (org-mode-hook . yas-minor-mode)
+  (org-mode-hook . flycheck-mode)
   ;(org-mode-hook . swk/init-org-hook)
   )
 
