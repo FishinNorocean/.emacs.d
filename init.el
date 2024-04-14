@@ -12,6 +12,7 @@
 	(error "Your Emacs is too old -- this config requires v%s or higher" minver)))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "mdx-dict" user-emacs-directory))
 (setenv "EMACS_ZSH" "true")
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))
@@ -790,6 +791,10 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 
 ;; (require 'init-modeline)
 
+(use-package term
+  :config
+  (define-key term-raw-map (kbd "C-c C-g") 'swk/kill-process-and-window))
+
 (when (display-graphic-p)
    (require 'init-latex)
 ;;   (require 'init-chinese-word-segment)
@@ -799,6 +804,19 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   ;; 	:if window-system
   ;; 	:init (good-scroll-mode))
   )
+
+(use-package google-this
+  :if (display-graphic-p)
+  :ensure t
+  :init
+  (google-this-mode)
+  :config
+  (global-set-key (kbd "C-c g") 'google-this))
+
+
+(require 'mdx-dictionary)
+
+(mdx-dictionary-start-server (expand-file-name "~/.emacs.d/mdx-dict/21世纪大英汉词典.mdx"))
 
 ;;(when (display-graphic-p)
 ;;   (use-package chatgpt-shell

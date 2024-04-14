@@ -82,6 +82,56 @@
         (error "Cannot open tramp file")
       (browse-url (concat "file://" file-name)))))
 
+(defvar swk/quick-access-urls
+  '(("h" . "https://www.zjuers.com")
+    ("y" . "https://www.youtube.com")
+    ("m" . "https://www.gmail.com")
+	("o" . "https://www.coze.com/space/7338821075528269830/bot/7338820963246784518")
+	("g" . "https://www.github.com")
+	("b" . "https://www.bilibili.com")
+	("c" . "https://www.cc98.org"))
+  "Predefined shortcut options.")
+
+(defun swk/web-quick-access ()
+  "Help you launch browser quicker.
+a for quick access, u for goto url, g for 'google=this."
+  (interactive)
+  (let ((key (read-key-sequence "Choose an option(a|u|g): ")))
+    (cond ((string= key "a")
+           (let ((buffer (generate-new-buffer "*Shortcut-Options*"))
+                 (window (split-window-below (floor (* 0.75 (window-height))))))
+             (with-current-buffer buffer
+               (mapc (lambda (site)
+                       (insert (format "%s: %s\n" (car site) (cdr site))))
+                     swk/quick-access-urls))
+             (set-window-buffer window buffer)
+             (catch 'done
+               (while t
+                 (let* ((choice (assoc
+                                 (read-key-sequence "Choose your shoutcut: ")
+                                 swk/quick-access-urls))
+                        (url (cdr choice)))
+                   (if url
+                       (progn
+                         (browse-url url)
+                         (kill-buffer buffer)
+                         (delete-window window)
+                         (throw 'done t))
+                     (beep)))))))
+          ((string= key "u")
+           (call-interactively 'browse-url))
+          ((string= key "g")
+           (call-interactively 'google-this))))); (read-string "Search Google: "))))))
+
+(defun swk/kill-process-and-window ()
+  "Kill a term or console."
+  (interactive)
+   (let ((process (get-buffer-process (current-buffer))))
+    (if process
+      (progn
+        (kill-buffer-and-window))
+    (message "It's not a process!"))))
+
 (defun copy-whole-line ()
   "Copy the whole line."
   (interactive)

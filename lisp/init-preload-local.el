@@ -43,6 +43,8 @@
 (setq enable-remote-dir-locals t)
 
 (global-set-key (kbd "C-x M-b") 'switch-to-buffer)
+(global-set-key (kbd "C-c d") 'swk/web-quick-access)
+;; (global-set-key (kbd "C-t C-e") 'centaur-tabs--kill-this-buffer-dont-ask)
 
 ;;; keyboard setting
 (global-set-key (kbd "RET") 'newline-and-indent)
@@ -74,7 +76,7 @@
          (setq mac-command-modifier 'meta)
          (setq mac-option-modifier 'super)
 		 )))
-(global-set-key (kbd "C-t") nil)
+(global-unset-key (kbd "C-t"))
 (global-set-key (kbd "C-t C-t") 'swk/new-terminal)
 (global-set-key (kbd "C-t C-s") 'toggle-window-split)
 
