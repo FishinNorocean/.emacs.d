@@ -30,3 +30,5 @@ games/
 .cask/*
 eln-cache/*
 dirvish/*
+mdx-dict/mdx-server/
+

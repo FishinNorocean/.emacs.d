@@ -99,7 +99,7 @@ a for quick access, u for goto url, g for 'google=this."
   (let ((key (read-key-sequence "Choose an option(a|u|g): ")))
     (cond ((string= key "a")
            (let ((buffer (generate-new-buffer "*Shortcut-Options*"))
-                 (window (split-window-below (floor (* 0.75 (window-height))))))
+                 (window (split-window-below (floor (* 0.5 (window-height))))))
              (with-current-buffer buffer
                (mapc (lambda (site)
                        (insert (format "%s: %s\n" (car site) (cdr site))))

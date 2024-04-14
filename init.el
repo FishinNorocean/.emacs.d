@@ -471,8 +471,9 @@
 
 (use-package flycheck
   :ensure t
-  ;; :init (global-flycheck-mode)
+  :init (if *is-a-mac* (global-flycheck-mode))
   :config
+  (if (not *is-a-mac*) (global-flycheck-mode))
   (setq truncate-lines nil)
   :hook
   (prog-mode . flycheck-mode)
