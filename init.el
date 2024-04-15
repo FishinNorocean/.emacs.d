@@ -253,6 +253,7 @@
    ;("y"   . dirvish-yank-menu)
    ;("N"   . dirvish-narrow)
    ("^"   . dirvish-history-last)
+   ("~"   . counsel-find-file)
    ("h"   . dirvish-history-jump) ; remapped `describe-mode'
    ("s"   . dirvish-quicksort)    ; remapped `dired-sort-toggle-or-edit'
    ; ("v"   . dirvish-vc-menu)      ; remapped `dired-view-file'
