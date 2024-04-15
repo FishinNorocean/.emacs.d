@@ -22,7 +22,7 @@
 		(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
 			  doom-themes-enable-italic t) ; if nil, italics is universally disabled
 		(setq doom-dark+-blue-modeline t)
-		(load-theme 'doom-dark+ t)
+		(load-theme 'doom-badger t)
 		; (custom-set-faces '(region ((t (:background "lightgoldenrod2")))))
 
 		;; Enable flashing mode-line on errors

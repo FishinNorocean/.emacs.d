@@ -794,26 +794,8 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 (global-set-key (kbd "C-x u") 'undo-tree-visualize)
 (global-set-key (kbd "C-/") 'undo-tree-undo)
 
-;; sml-mode -- smart mode line
-(use-package smart-mode-line
-  :ensure t
-  :init
-  (setq sml/no-confirm-load-theme t)  ; avoid asking when startup
-  :config
-  (setq display-time-format "%a %b %d %R") ; 设置时间格式为24小时制的小时、分钟和秒
-  (display-time-mode 1)
-  (setq rm-blacklist
-		(format "^ \\(%s\\)$"
-				(mapconcat #'identity
-                           '("Projectile.*" "company.*" "Google"
-							 "Undo-Tree" "counsel" "ivy" "yas" "WK")
-                           "\\|")))
-  ; (setq sml/use-projectile-p 'before-prefixes)
-  (setq sml/all-the-icons-symlink t)
-  (sml/setup))
 
-;; (require 'init-modeline)
-
+(require 'init-modeline)
 (use-package term
   :config
   (define-key term-raw-map (kbd "C-c C-g") 'swk/kill-process-and-window))
