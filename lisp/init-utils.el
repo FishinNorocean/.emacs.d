@@ -99,29 +99,28 @@ a for quick access, u for goto url, g for 'google=this."
   (let ((key (read-key-sequence "Choose an option(a|u|g): ")))
     (cond ((string= key "a")
            (let ((buffer (generate-new-buffer "*Shortcut-Options*"))
-                 (window (split-window-below (floor (* 0.5 (window-height))))))
+                 (options-window (split-window-below (floor (* 0.5 (window-height))))))
              (with-current-buffer buffer
                (mapc (lambda (site)
                        (insert (format "%s: %s\n" (car site) (cdr site))))
                      swk/quick-access-urls))
-             (set-window-buffer window buffer)
+             (set-window-buffer options-window buffer)
              (catch 'done
                (while t
-                 (let* ((choice (assoc
-                                 (read-key-sequence "Choose your shoutcut: ")
-                                 swk/quick-access-urls))
-                        (url (cdr choice)))
+                 (let* ((choice (read-key-sequence "Choose your shoutcut or press 'q' to quit: "))
+                        (url (if (string= choice "q") (progn (kill-buffer buffer) (delete-window options-window) (throw 'done t)) (cdr (assoc choice swk/quick-access-urls)))))
                    (if url
                        (progn
                          (browse-url url)
                          (kill-buffer buffer)
-                         (delete-window window)
+                         (delete-window options-window)
                          (throw 'done t))
-                     (beep)))))))
+                     (unless (string= choice "q")
+                       (beep))))))))
           ((string= key "u")
            (call-interactively 'browse-url))
           ((string= key "g")
-           (call-interactively 'google-this))))); (read-string "Search Google: "))))))
+           (call-interactively 'google-this)))))
 
 (defun swk/kill-process-and-window ()
   "Kill a term or console."

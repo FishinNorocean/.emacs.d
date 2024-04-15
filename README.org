@@ -4,14 +4,14 @@
 This is just my config, look through if you like.
 
 ** TODO list
-*** TODO add hook pdf-view-mode to pdf files
-*** TODO add pdf buffers to org buffer groups. Or something else better.
-*** TODO disable <> auto compeletion in org-mode
-*** TODO settle whether pdf-tools installation is necessary in fedora
+*** DONE add hook pdf-view-mode to pdf files
+*** DONE add pdf buffers to org buffer groups. Or something else better.
+*** DONE disable <> auto compeletion in org-mode
+*** DONE settle whether pdf-tools installation is necessary in fedora
 *** TODO settle the non-original form problem in mdx-dict module.
 *** TODO add figure and latex preview for org-mode
 *** TODO org-mode highlight TeX stuff
-*** TODO high the window with current cursor
+*** TODO highlight the window with current cursor
 
 ** other todo list
 *** TODO add calendar to fedora

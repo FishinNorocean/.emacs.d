@@ -74,6 +74,7 @@
   (ivy-mode 1)
   (counsel-mode 1)
   :config
+  (setq ivy-height 10)
   (setq ivy-use-virtual-buffers t)
   (setq search-default-mode #'char-fold-to-regexp)
   (setq ivy-count-format "(%d/%d) ")
@@ -88,6 +89,21 @@
    :map minibuffer-local-map
    ("C-r" . counsel-minibuffer-history)))
 
+(use-package ivy-posframe
+  :ensure t
+  :config
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+  (setq ivy-posframe-width 80)
+  (setq ivy-posframe-height 10)
+  (setq ivy-posframe-font "MesloLGS NF 12")
+  ;; (setq ivy-posframe-display-functions-alist
+  ;; 		'((swiper          . ivy-posframe-display-at-point)
+  ;;         ;(complete-symbol . ivy-posframe-display-at-point)
+  ;;         (counsel-M-x     . ivy-posframe-display-at-frame-top-center)
+  ;;         (t               . ivy-display-function-fallback)))
+  (ivy-posframe-mode 1))
+
+
 (use-package centaur-tabs
 		:ensure t
 		:demand
@@ -97,7 +113,7 @@
 		(setq centaur-tabs-style "bar")
 		;; (setq centaur-tabs-modified-marker "*")
 		(setq centaur-tabs-label-fixed-length 8)
-		(setq centaur-tabs-height 24)
+		(setq centaur-tabs-height 20)
 		(if (display-graphic-p) (setq centaur-tabs-set-icons t))
 		(setq centaur-tabs-set-bar 'left)
 		;; Note: If you're not using Spacmeacs, in order for the underline to display
@@ -168,7 +184,7 @@
 			 "PDF")
 			(t
 			 (centaur-tabs-get-group-name (current-buffer))))))
-		; (centaur-tabs-enable-buffer-alphabetical-reordering)
+		(centaur-tabs-enable-buffer-alphabetical-reordering)
 		; (setq centaur-tabs-adjust-buffer-order t)
 		;; (centaur-tabs-group-by-projectile-project)
 		:bind
