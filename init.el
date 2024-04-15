@@ -95,7 +95,7 @@
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
   (setq ivy-posframe-width 80)
   (setq ivy-posframe-height 10)
-  (setq ivy-posframe-font "MesloLGS NF 12")
+  (if (not *is-a-mac*) (setq ivy-posframe-font "MesloLGS NF 12"))
   ;; (setq ivy-posframe-display-functions-alist
   ;; 		'((swiper          . ivy-posframe-display-at-point)
   ;;         ;(complete-symbol . ivy-posframe-display-at-point)
