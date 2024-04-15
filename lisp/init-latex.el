@@ -36,7 +36,6 @@
   :if (display-graphic-p)
   :ensure t
   :config
-  ;
   (add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1))))
 
 (defun pdf-view-kill-rmn-ring-save ()
@@ -51,6 +50,7 @@
 (use-package pdf-view-mode
   :bind
   ("C-c C-w" . pdf-view-kill-rmn-ring-save))
+  
 
 (provide 'init-latex)
 

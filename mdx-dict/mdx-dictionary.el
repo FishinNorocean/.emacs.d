@@ -165,8 +165,17 @@ It return an alist looks like
                          (or us-phonetic uk-phonetic "")
                          glossary)))))
 
+(defun swk/stop-mdx-server-save-buffers-kill-terminal ( )
+   "Kill the running mdx server and do the usual out process."
+   (interactive)
+   (mdx-dictionary-stop-server)
+   (call-interactively 'save-buffers-kill-terminal)
+   )
+
+(global-set-key (kbd "C-x C-c") 'swk/stop-mdx-server-save-buffers-kill-terminal)
 (global-set-key (kbd "C-M-s") 'mdx-dictionary-query)
 
+(mdx-dictionary-start-server (expand-file-name "~/.emacs.d/mdx-dict/21世纪大英汉词典.mdx"))
 
 (provide 'mdx-dictionary)
 ;; mdx-dictionary.el ends here

@@ -4,7 +4,7 @@
 This is just my config, look through if you like.
 
 ** TODO list
-*** TODO add hook pdf-view-mode to pdf-tools
+*** TODO add hook pdf-view-mode to pdf files
 *** TODO add pdf buffers to org buffer groups. Or something else better.
 *** TODO disable <> auto compeletion in org-mode
 *** TODO settle whether pdf-tools installation is necessary in fedora

@@ -94,10 +94,12 @@
 		:config
 		(centaur-tabs-mode t)
 		;; (centaur-tabs-headline-match)
-		(setq centaur-tabs-style "wave")
-		(setq centaur-tabs-height 32)
+		(setq centaur-tabs-style "bar")
+		;; (setq centaur-tabs-modified-marker "*")
+		(setq centaur-tabs-label-fixed-length 8)
+		(setq centaur-tabs-height 24)
 		(if (display-graphic-p) (setq centaur-tabs-set-icons t))
-		(setq centaur-tabs-set-bar 'over)
+		(setq centaur-tabs-set-bar 'left)
 		;; Note: If you're not using Spacmeacs, in order for the underline to display
 		;; correctly you must add the following line:
 		(setq x-underline-at-descent-line t)
@@ -161,7 +163,9 @@
 								org-cdlatex-mode
 								org-agenda-log-mode
 								diary-mode))
-			 "OrgMode")
+			 "Orgs")
+			((memq major-mode '(pdf-view-mode))
+			 "PDF")
 			(t
 			 (centaur-tabs-get-group-name (current-buffer))))))
 		; (centaur-tabs-enable-buffer-alphabetical-reordering)
@@ -223,6 +227,7 @@
 	(setq dired-listing-switches
           "-l --almost-all --human-readable --group-directories-first --no-group"))
   (add-hook 'dired-mode (lambda () (display-line-numbers-mode -1)))
+  (setq dirvish-preview-disabled-exts '("iso" "bin" "exe" "gpg" "elc" "eln"))
   :bind ; Bind `dirvish|dirvish-side|dirvish-dwim' as you see fit
   (("C-c f" . dirvish-fd)
    ("C-x d" . dirvish)
@@ -245,7 +250,7 @@
    ("M-t" . dirvish-layout-toggle)
    ("M-s" . dirvish-setup-menu)
    ("M-e" . dirvish-emerge-menu)
-   ;; ("M-j" . dirvish-fd-jump)
+   ;; ("M-j" . dirvish-fd-jump))
    ))
 
 (use-package avy
@@ -815,9 +820,11 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   (global-set-key (kbd "C-c g") 'google-this))
 
 
+(add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
+
 (require 'mdx-dictionary)
 
-(mdx-dictionary-start-server (expand-file-name "~/.emacs.d/mdx-dict/21世纪大英汉词典.mdx"))
+
 
 ;;(when (display-graphic-p)
 ;;   (use-package chatgpt-shell
