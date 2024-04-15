@@ -49,7 +49,9 @@
 
 (use-package pdf-view-mode
   :bind
-  ("C-c C-w" . pdf-view-kill-rmn-ring-save))
+  ("C-c C-w" . pdf-view-kill-rmn-ring-save)
+  :config
+  (add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1))))
   
 
 (provide 'init-latex)
