@@ -9,8 +9,8 @@ This is just my config, look through if you like.
 *** DONE disable <> auto compeletion in org-mode
 *** DONE settle whether pdf-tools installation is necessary in fedora
 *** TODO settle the non-original form problem in mdx-dict module.
-*** TODO add figure and latex preview for org-mode
-*** TODO org-mode highlight TeX stuff
+*** DONE add figure and latex preview for org-mode
+*** DONE org-mode highlight TeX stuff
 *** TODO highlight the window with current cursor
 
 ** other todo list
