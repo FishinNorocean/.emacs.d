@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: course-note-header
+# key: ch
+# -*- mode: org; -*-
+# --
+#+TITLE: ${1:Title} 
+#+AUTHOR: FishinNorocean
+#+DATE: `(format-time-string "%Y-%m-%d")`
+#+STARTUP: showall
+#+OPTIONS: toc:nil
+#+TODO: TODO | DONE
+
+$0
+
+
+
+
+
+
+
+
+
+
+* Questions to be solved

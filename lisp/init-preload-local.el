@@ -25,6 +25,7 @@
 ;; (menu-bar-mode -1)
 (tool-bar-mode -1)
 (desktop-save-mode -1)
+(global-hl-line-mode t)
 ;; (global-tab-line-mode)
 (when (display-graphic-p) (toggle-scroll-bar -1))
 ;; (add-to-list 'default-frame-alist '(width . 90))

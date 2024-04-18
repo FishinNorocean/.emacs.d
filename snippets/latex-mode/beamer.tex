@@ -1,0 +1,66 @@
+# -*- mode: snippet -*-
+# name: beamer
+# key: beamer
+# --
+\documentclass[aspectratio=1610,11pt]{beamer}
+\graphicspath{{Images/}{./}} 
+\usepackage{booktabs} 
+\usetheme{Madrid}
+ \usecolortheme{whale}
+\usefonttheme{serif}
+\usepackage{palatino}
+\usepackage[default]{opensans}
+\useinnertheme{circles}
+% \usepackage{newtxtext} % Times New Roman text
+% \usepackage{newtxmath} % Times New Roman math
+\usepackage{csvsimple}
+
+%-----------------------------
+%presentation information
+%-----------------------------
+\title[$1]{$2}
+\subtitle{$3}
+\author[Sang Wenkai]{Sang Wenkai}
+\institute[ZJU]{Presented by Sang Wenkai \\ \smallskip Zhejiang University\\ \smallskip \textit{swklouis@gmail.com}}
+\date[\today]{\today}
+
+
+%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% --------------title slide------------------
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% ------- table of contents slide ------------
+\begin{frame}
+  \frametitle{Presentation overview}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --------presentation body slides -----------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+
+\begin{frame}
+  \frametitle{Background}
+\end{frame}
+
+$0
+
+\begin{frame}
+  \begin{center}
+    {\huge The End}
+
+    \bigskip\bigskip
+
+    {\LARGE Thank you for your listening.}
+  \end{center}
+\end{frame}
+
+\end{document}
