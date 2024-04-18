@@ -1,4 +1,4 @@
-;;; init-modeline.el --- All the icons modeline confg
+;;; init-modeline.el --- modeline configuration
 ;;; Commentary:
 ;;; config a good looking mode line
 ;;; a number of other files.
@@ -21,9 +21,19 @@
 							 "Undo-Tree" "counsel" "ivy" "yas" "WK")
                            "\\|")))
   ; (setq sml/use-projectile-p 'before-prefixes)
-  (setq sml/all-the-icons-symlink t)
+  ; (setq sml/all-the-icons-symlink t)
   (sml/setup))
 
+(use-package nyan-mode
+  :if (display-graphic-p)
+  :ensure t
+  :config
+  (nyan-mode)
+  (setq nyan-animate-nyancat t)
+  (nyan-start-animation)
+  (setq nyan-cat-face-number 1)
+  ; (setq nyan-bar-length 20)
+  (setq nyan-wavy-trail t))
 
 
 (use-package doom-modeline
@@ -31,8 +41,10 @@
   :ensure t
   :hook (after-init . doom-modeline-mode)
   :config
+  (setq doom-modeline-total-line-number t)
   (setq doom-modeline-time-icon nil)
   (setq doom-modeline-time t)
+  (setq doom-modeline-battery t)
   ; (setq display-time-format "%a %b %d %R")
   (setq display-time-default-load-average nil)
   (setq doom-modeline-major-mode-icon t)
