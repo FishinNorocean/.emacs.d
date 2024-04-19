@@ -11,8 +11,6 @@
   ;; (defun swk/init-org-hook ()
   ;; 	(org-toggle-pretty-entities))
   
-  (add-hook 'org-mode-hook
-			(lambda () (local-set-key (kbd "C-j") nil)))
   (defun disable-angle-bracket-in-org-mode ()
 	(setq-local electric-pair-pairs (remq '(?< . ?>) electric-pair-pairs)))
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.25))
@@ -23,13 +21,17 @@
   
   
   :hook
-  (org-mode-hook . visual-line-mode)
+  (org-mode-hook . (lambda () (visual-line-mode 1)))
   (org-mode-hook . yas-minor-mode)
   (org-mode-hook . flyspell-mode)
   (org-mode-hook . disable-angle-bracket-in-org-mode)
   ;(org-mode-hook . swk/init-org-hook)
   )
 
+(with-eval-after-load 'org
+  (add-hook 'org-mode-hook #'visual-line-mode)
+    (add-hook 'org-mode-hook
+			(lambda () (local-set-key (kbd "C-j") nil))))
 ;; Agenda settings:
 (setq org-todo-keywords
       '((sequence "TODO" "IN-PROGRESS" "WAITING" "|" "DONE" "CANCELED")))

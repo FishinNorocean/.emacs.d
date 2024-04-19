@@ -13,6 +13,7 @@
 (delete-selection-mode t)
 ;; (setq shell-command-prompt-show-cwd nil)
 ;; (setq eshell-echo-input nil)
+(setq create-lockfiles nil)
 (setq inhibit-startup-message t)    ;; Hide the startup message
 (setq-default python-indent 4)
 (setq c-basic-offset 4)
