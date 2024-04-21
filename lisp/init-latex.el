@@ -41,6 +41,7 @@
   (company-auctex-init))
 
 (with-eval-after-load 'latex
+  (add-hook 'LaTeX-mode-hook #'flyspell-mode)
   (define-key LaTeX-mode-map (kbd "C-<return>") 'tex-insert-macro)
   (define-key LaTeX-mode-map (kbd "C-j") nil)
   (define-key LaTeX-mode-map (kbd "C-j C-SPC") 'avy-goto-char-timer)

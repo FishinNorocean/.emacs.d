@@ -45,7 +45,7 @@
 
 ;; (setq package-enable-at-startup nil)
 (package-initialize)
-(package-refresh-contents)
+; (package-refresh-contents)
 
 (provide 'init-elpa)
 ;;; init-elpa.el ends here
