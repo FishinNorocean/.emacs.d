@@ -9,6 +9,7 @@
 (setq initial-scratch-message "Rock\'n\'Roll ain't noise pollution.")
 (add-hook 'prog-mode-hook #'show-paren-mode)
 (column-number-mode t)
+(if *is-a-mac* (setq split-width-threshold 120))
 (global-auto-revert-mode t)
 (delete-selection-mode t)
 ;; (setq shell-command-prompt-show-cwd nil)
@@ -46,7 +47,7 @@
 (setq enable-remote-dir-locals t)
 
 (global-set-key (kbd "C-x M-b") 'switch-to-buffer)
-(global-set-key (kbd "C-c d") 'swk/web-quick-access)
+(global-set-key (kbd "C-c w") 'swk/web-quick-access)
 ;; (global-set-key (kbd "C-t C-e") 'centaur-tabs--kill-this-buffer-dont-ask)
 
 ;;; keyboard setting

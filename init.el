@@ -125,7 +125,9 @@
 
 (require 'init-tfm)
 
-
+(use-package which-key
+  :ensure t
+  :init (which-key-mode))
 
 (use-package avy
   :ensure t
@@ -148,11 +150,11 @@
    ("C-j C-w" . avy-kill-ring-save-region)
    ("C-j M-w" . avy-kill-region)))
 
-;; (use-package marginalia
-;;   :ensure t
-;;   :init (marginalia-mode)
-;;   :bind (:map minibuffer-local-map
-;; 			  ("M-A" . marginalia-cycle)))
+(use-package marginalia
+  :ensure t
+  :init (marginalia-mode)
+  :bind (:map minibuffer-local-map
+			  ("M-A" . marginalia-cycle)))
 
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns))
@@ -374,15 +376,18 @@
   (setq dashboard-projects-backend 'projectile)
   ; (setq dashboard-startup-banner 1)
   (setq dashboard-startup-banner (expand-file-name "marisa.png" user-emacs-directory))
-  (setq dashboard-items '((recents  . 5)
-						  (projects . 3)
-						  (bookmarks . 5)))
+  (setq dashboard-items '((projects . 5)
+						  (recents  . 5)
+						  (bookmarks . 3)))
   (setq dashboard-set-heading-icons t)
   (setq dashboard-footer-messages '("Take good care of yourself."))
   (setq dashboard-set-file-icons t)
   (dashboard-setup-startup-hook)
   :bind (:map dashboard-mode-map
-         ("d" . 'dirvish)))
+         ("d" . 'dirvish)
+		 ; ("n" . 'next-line)
+		 ; ("p" . 'previous-line)
+		 ("g" . 'magit)))
 
 (use-package projectile
   :ensure t
@@ -419,8 +424,8 @@
   (setq lsp-keymap-prefix "C-c l"
 		lsp-file-watch-threshold 500)
   ;; lsp-prefer-flymake nil)
-  ;; :hook
-  ;; (lsp-mode . lsp-enable-which-key-integration) ; which-key integration
+  :hook
+  (lsp-mode . lsp-enable-which-key-integration) ; which-key integration
   :commands (lsp lsp-deferred)
   :config
   (setq lsp-completion-provider :none)

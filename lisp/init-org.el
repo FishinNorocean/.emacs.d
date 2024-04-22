@@ -13,7 +13,7 @@
   
   
 	
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.25))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (setq org-latex-create-formula-image-program 'dvisvgm)
   (setq org-startup-with-inline-images t)
   (setq org-startup-with-latex-preview t)
@@ -40,15 +40,26 @@
 (setq org-agenda-files '("~/org/Agenda/"))
 
 
-(defun swk/pop-to-org-agenda (split)
+(defun swk/pop-to-org-agenda-day ()
   "Visit the org agenda, in the current window or a SPLIT."
-  (interactive "P")
+  (interactive)
   ;(org-agenda-list)
   (org-agenda nil "d")
-  (when (not split)
-    (delete-other-windows)))
+  ;; (when (not split)
+  ;;   (delete-other-windows))
+  )
 
-(define-key global-map (kbd "C-c a") 'org-agenda)
+(defun swk/pop-to-org-agenda-simple ()
+  "Visit the org agenda, in the current window or a SPLIT."
+  (interactive)
+  ;(org-agenda-list)
+  (org-agenda nil "c")
+  ;; (when (not split)
+  ;;   (delete-other-windows))
+  )
+
+(define-key global-map (kbd "C-c a") 'swk/pop-to-org-agenda-simple)
+(define-key global-map (kbd "C-c d") 'swk/pop-to-org-agenda-day)
 
 (defun air-org-skip-subtree-if-priority (priority)
   "Skip an agenda subtree if it has a priority of PRIORITY.
@@ -83,18 +94,20 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
          ((tags "PRIORITY=\"A\""
                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (agenda "" ((org-agenda-ndays 1)))
+          (agenda "" ((org-agenda-span 'day)))
           (alltodo ""
                    ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
                                                    (air-org-skip-subtree-if-priority ?A)
                                                    (org-agenda-skip-if nil '(scheduled deadline))))
                     (org-agenda-overriding-header "ALL normal priority tasks:"))))
-         ((org-agenda-compact-blocks t)))))
+         ;((org-agenda-compact-blocks t))
+		 )))
 
 (setq org-capture-templates
 	  '(("a" "My TODO task format." entry
          (file "~/org/Agenda/todo.org")
-         "* TODO %?
+         "
+* TODO %?
 SCHEDULED: %t")))
 (setq org-agenda-text-search-extra-files '(agenda-archives))
 (setq org-blank-before-new-entry (quote ((heading) (plain-list-item))))
