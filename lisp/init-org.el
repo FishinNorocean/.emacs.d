@@ -4,7 +4,21 @@
 
 ;;; Code:
 
+(use-package captain
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook
+			(lambda ()
+			  (setq captain-predicate (lambda () (nth 8 (syntax-ppss (point)))))))
+  (add-hook 'text-mode-hook
+			(lambda ()
+              (setq captain-predicate (lambda () t))))
 
+  (add-hook
+   'org-mode-hook
+   (lambda ()
+	 (setq captain-predicate
+           (lambda () (not (org-in-src-block-p)))))))
 
 (use-package org
   :config
@@ -24,6 +38,7 @@
   (org-mode-hook . (lambda () (visual-line-mode 1)))
   (org-mode-hook . yas-minor-mode)
   (org-mode-hook . flyspell-mode)
+  (org-mode-hook . captain-mode)
   ;; (org-mode-hook . disable-angle-bracket-in-org-mode)
   ;; (org-mode-hook . swk/init-org-hook)
   )
