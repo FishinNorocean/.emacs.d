@@ -13,6 +13,7 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "mdx-dict" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "copilot" user-emacs-directory))
 (setenv "EMACS_ZSH" "true")
 (defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))
@@ -376,8 +377,8 @@
   (setq dashboard-projects-backend 'projectile)
   ; (setq dashboard-startup-banner 1)
   (setq dashboard-startup-banner (expand-file-name "marisa.png" user-emacs-directory))
-  (setq dashboard-items '((projects . 5)
-						  (recents  . 5)
+  (setq dashboard-items '((recents  . 5)
+						  (projects . 5)
 						  (bookmarks . 3)))
   (setq dashboard-set-heading-icons t)
   (setq dashboard-footer-messages '("Take good care of yourself."))
@@ -574,8 +575,12 @@ _Q_: Disconnect     _sl_: List locals        _bl_: Set log message
 (use-package highlight-symbol
   :ensure t
   ;; :init (if *is-a-mac* (highlight-symbol-mode))
-  :config (highlight-symbol-mode)
-  :bind ("<f3>" . highlight-symbol))
+  :config
+  (add-hook 'prog-mode-hook 'highlight-symbol-mode)
+  (add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
+  (setq highlight-symbol-idle-delay 0.5)  ; 0.5秒后自动高亮相同符号
+  )
+
 
 
 ;; My mode about CALPUFF
@@ -686,11 +691,23 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   :config
   (global-set-key (kbd "C-c g") 'google-this))
 
+(use-package evil
+  :disabled
+  :ensure t
+  :init
+  (evil-mode 1))
 
 (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
 
 ; (require 'mdx-dictionary)
 
+
+(use-package editorconfig
+  :ensure t)
+(use-package jsonrpc
+  :ensure t)
+(require 'copilot)
+(add-hook 'prog-mode-hook 'copilot-mode)
 
 
 ;;(when (display-graphic-p)

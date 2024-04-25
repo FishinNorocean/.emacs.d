@@ -86,7 +86,7 @@
   '(("h" . "https://www.zjuers.com")
     ("y" . "https://www.youtube.com")
     ("m" . "https://www.gmail.com")
-	("o" . "https://www.coze.com/space/7338821075528269830/bot/7338820963246784518")
+	("o" . "https://copilot.microsoft.com/?wlexpsignin=1")
 	("g" . "https://www.github.com")
 	("b" . "https://www.bilibili.com")
 	("c" . "https://www.cc98.org"))
