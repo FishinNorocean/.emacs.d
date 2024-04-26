@@ -692,7 +692,6 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   (global-set-key (kbd "C-c g") 'google-this))
 
 (use-package evil
-  :disabled
   :ensure t
   :config
   (add-hook 'prog-mode-hook (lambda () (evil-local-mode 1)))
