@@ -23,6 +23,7 @@
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 ;; (add-hook 'fundamental-mode-hook (lambda () (display-line-numbers-mode -1)))
 (global-display-line-numbers-mode 1)
+
 (setq display-line-numbers-type 'relative)
 ;; (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -32,7 +33,7 @@
 (when (display-graphic-p) (toggle-scroll-bar -1))
 ;; (add-to-list 'default-frame-alist '(width . 90))
 ;; (add-to-list 'default-frame-alist '(height . 55))
-(when (display-graphic-p) (toggle-frame-maximized))
+(when *is-a-mac* (toggle-frame-fullscreen) (toggle-frame-maximized))
 
 ;; (put 'scroll-left 'disabled nil)
 

@@ -694,8 +694,11 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 (use-package evil
   :disabled
   :ensure t
-  :init
-  (evil-mode 1))
+  :config
+  (add-hook 'prog-mode-hook (lambda () (evil-local-mode 1)))
+  (add-hook 'org-mode-hook (lambda () (evil-local-mode 1)))
+  (add-hook 'markdown-mode-hook (lambda () (evil-local-mode 1))))
+
 
 (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
 
@@ -706,8 +709,8 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   :ensure t)
 (use-package jsonrpc
   :ensure t)
-(require 'copilot)
-(add-hook 'prog-mode-hook 'copilot-mode)
+;(require 'copilot)
+;(add-hook 'prog-mode-hook 'copilot-mode)
 
 
 ;;(when (display-graphic-p)
