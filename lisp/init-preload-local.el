@@ -33,7 +33,8 @@
 (when (display-graphic-p) (toggle-scroll-bar -1))
 ;; (add-to-list 'default-frame-alist '(width . 90))
 ;; (add-to-list 'default-frame-alist '(height . 55))
-(when *is-a-mac* (toggle-frame-fullscreen) (toggle-frame-maximized))
+(toggle-frame-maximized)
+(when *is-a-mac* (toggle-frame-fullscreen))
 
 ;; (put 'scroll-left 'disabled nil)
 

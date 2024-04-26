@@ -696,7 +696,17 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   :config
   (add-hook 'prog-mode-hook (lambda () (evil-local-mode 1)))
   (add-hook 'org-mode-hook (lambda () (evil-local-mode 1)))
-  (add-hook 'markdown-mode-hook (lambda () (evil-local-mode 1))))
+  (add-hook 'markdown-mode-hook (lambda () (evil-local-mode 1)))
+  (defun my-evil-escape ()
+  "Change 'jj' to ESC in evil-insert-state."
+  (interactive)
+  (insert "j") 
+  (if (equal (buffer-substring (- (point) 2) (point)) "jj") 
+      (progn
+        (delete-char -2) 
+        (evil-normal-state))))) 
+
+(define-key evil-insert-state-map "j" 'my-evil-escape)
 
 
 (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
