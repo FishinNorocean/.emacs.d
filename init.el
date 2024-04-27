@@ -44,7 +44,7 @@
   (require 'use-package))
 
 ;; Allow users to provide an optional "init-preload-local.el"
-(require 'init-preload-local nil t)
+(require 'init-preload-local)
 (require 'init-themes)
 
 ;; ===========================================
@@ -289,6 +289,7 @@
 
 (require 'copilot)
 (add-hook 'prog-mode-hook 'copilot-mode)
+(define-key prog-mode-map (kbd "C-<return>") 'copilot-accept-completion)
 
 (use-package company-box
   :ensure t
@@ -544,8 +545,7 @@ _Q_: Disconnect     _sl_: List locals        _bl_: Set log message
   :ensure t
   :after (treemacs lsp))
 
-(use-package magit
-  :ensure t)
+(require 'init-vc)
 
 (use-package yasnippet
   :ensure t
