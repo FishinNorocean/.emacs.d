@@ -32,3 +32,4 @@ eln-cache/*
 dirvish/*
 mdx-dict/mdx-server/
 *.desktop
+chatgpt/*

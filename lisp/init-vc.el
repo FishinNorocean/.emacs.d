@@ -37,18 +37,40 @@
 	[224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224 224]
 	nil nil 'center)
   (define-fringe-bitmap 'git-gutter-fr:deleted
-	[0 0 0 0 0 0 0 0 0 0 0 0 0 128 192 224 240 248]
-	nil nil 'center)
-  (set-face-foreground 'git-gutter:added "green")
-  (set-face-foreground 'git-gutter:modified "yellow")
-  (set-face-foreground 'git-gutter:deleted "red")
+	[0 0 0 0 0 0 0 0 0 0 0 0 0 128 192 224 240 248])
+  ;; (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+  ;; (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+  ;; (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom)
+  ;; (custom-set-variables
+  ;;  '(git-gutter:modified-sign "|") ;; two space
+  ;;  '(git-gutter:added-sign "|")    ;; multiple character is OK
+  ;;  '(git-gutter:deleted-sign "|"))
+  (set-face-foreground 'git-gutter-fr:added "#0F9D58")
+  (set-face-foreground 'git-gutter-fr:modified "#4285F4")
+  (set-face-foreground 'git-gutter-fr:deleted "#DB4437")
   (setq git-gutter:update-interval 2)
+  (fringe-mode '(15 . 0))
   :hook
   (prog-mode . git-gutter-mode)
   (text-mode . git-gutter-mode)
   (conf-mode . git-gutter-mode))
 
-
+(use-package diff-hl
+  :disabled
+  :ensure t
+  ;; :init
+  ;; (global-diff-hl-mode)
+  :config
+  (diff-hl-flydiff-mode)
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+  :custom
+  (diff-hl-draw-borders nil)
+  (diff-hl-flydiff-delay 0.5)
+  :hook
+  (prog-mode . git-gutter-mode)
+  (dired-mode . git-gutter-mode)
+  (text-mode . git-gutter-mode)
+  (conf-mode . git-gutter-mode))
 
 
 (provide 'init-vc)

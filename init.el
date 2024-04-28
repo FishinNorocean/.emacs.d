@@ -153,6 +153,12 @@
    ("C-j C-w" . avy-kill-ring-save-region)
    ("C-j M-w" . avy-kill-region)))
 
+(use-package expand-region
+  :ensure t
+  :bind
+  ("C-=" . er/expand-region)
+  ("C--" . er/contract-region))
+
 (use-package marginalia
   :ensure t
   :init (marginalia-mode)
@@ -729,14 +735,16 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 
 
 
-
-;;(when (display-graphic-p)
-;;   (use-package chatgpt-shell
-;; 	:custom
-;; 	((chatgpt-shell-openai-key
-;;       (lambda ()
-;; 		;; Here the openai-key should be the proxy service key.
-;; 		(pv/osx-get-keychain-password "openai key"))))))
+(when (display-graphic-p)
+  (use-package chatgpt-shell
+  :ensure t
+  :custom
+  ((chatgpt-shell-api-url-base "https://gptswkser.openai.azure.com")
+   (chatgpt-shell-api-url-path "/openai/deployments/swk_35/chat/completions?api-version=2024-02-15-preview")
+   (chatgpt-shell-openai-key
+    (lambda ()
+      (auth-source-pick-first-password :host "gptswkser.openai.azure.com")))
+   (chatgpt-shell-auth-header (lambda () (format "api-key: %s" (chatgpt-shell-openai-key)))))))
 
 (provide 'init)
 
