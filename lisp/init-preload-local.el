@@ -163,6 +163,9 @@
 
 (add-hook 'markdown-mode-hook (lambda ()
 						   (keyboard-translate ?· ?`)))
+;; Faster move cursor
+(global-set-key (kbd "M-n") 'next-ten-lines)
+(global-set-key (kbd "M-p") 'previous-ten-lines)
 
 (provide 'init-preload-local)
 ;;; init-preload-local.el ends here
