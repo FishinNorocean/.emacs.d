@@ -3,6 +3,9 @@
 
 This is just my config, look through if you like.
 
+** It looks like this:
+[[file:Screen_shot.png]]
+
 ** TODO list
 *** DONE add hook pdf-view-mode to pdf files
 *** DONE add pdf buffers to org buffer groups. Or something else better.
@@ -11,11 +14,14 @@ This is just my config, look through if you like.
 *** TODO settle the non-original form problem in mdx-dict module.
 *** DONE add figure and latex preview for org-mode
 *** DONE org-mode highlight TeX stuff
-*** TODO highlight the window with current cursor
-*** TODO release the "C-j" binding in org and latex
+*** DONE highlight the window with current cursor
+CLOSED: [2024-04-29 Mon 11:00]
+*** DONE release the "C-j" binding in org and latex
+CLOSED: [2024-04-29 Mon 11:00]
 *** DONE set "C-<return>" to 'tex-insert-macro
 
 
 
 ** other todo list
-*** TODO add calendar to fedora
+*** DONE add calendar to fedora
+CLOSED: [2024-04-29 Mon 11:01]
