@@ -125,7 +125,7 @@
   (setq delete-by-moving-to-trash t)
   (if *is-a-mac* (setq dired-listing-switches "-l -h")
 	(setq dired-listing-switches
-          "-l --almost-all --human-readable --group-directories-first --no-group"))
+          "-l --human-readable --group-directories-first --no-group"))
   (add-hook 'dired-mode (lambda () (display-line-numbers-mode -1)))
   (setq dirvish-preview-disabled-exts '("iso" "bin" "exe" "gpg" "elc" "eln"))
   :bind ; Bind `dirvish|dirvish-side|dirvish-dwim' as you see fit
@@ -153,6 +153,14 @@
    ("M-e" . dirvish-emerge-menu)
    ;; ("M-j" . dirvish-fd-jump))
    ))
+
+(use-package buffer-move
+  :ensure t
+  :config
+  (global-set-key (kbd "C-c <left>") 'buf-move-left)
+  (global-set-key (kbd "C-c <right>") 'buf-move-right)
+  (global-set-key (kbd "C-c <up>") 'buf-move-up)
+  (global-set-key (kbd "C-c <down>") 'buf-move-down))
 
 (provide 'init-tfm)
 ;;; init-tfm.el ends here

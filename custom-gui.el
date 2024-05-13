@@ -10,7 +10,7 @@
  '(git-gutter:deleted-sign "|")
  '(git-gutter:modified-sign "|")
  '(package-selected-packages
-   '(diff-hl chatgpt-shell expand-region fringe-helper git-gutter git-gutter-fringe editorconfig evil captain which-key company-auctex nyan-mode org-fragtog ivy-posframe popup request google-this ess dirvish yahoo-weather doom-modeline centaur-tabs good-scroll cargo rust-mode lsp-pyright pyvenv cmake-mode clang-format company-tabnine lsp-mode yaml-mode counsel-projectile projectile dashboard flycheck-clang-tidy flycheck company-box company tiny mwim meow ace-window exec-path-from-shell marginalia avy embark amx counsel use-package-hydra hydra helpful doom-themes all-the-icons)))
+   '(conda buffer-move diff-hl chatgpt-shell expand-region fringe-helper git-gutter git-gutter-fringe editorconfig evil captain which-key company-auctex nyan-mode org-fragtog ivy-posframe popup request google-this ess dirvish yahoo-weather doom-modeline centaur-tabs good-scroll cargo rust-mode lsp-pyright pyvenv cmake-mode clang-format company-tabnine lsp-mode yaml-mode counsel-projectile projectile dashboard flycheck-clang-tidy flycheck company-box company tiny mwim meow ace-window exec-path-from-shell marginalia avy embark amx counsel use-package-hydra hydra helpful doom-themes all-the-icons)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
