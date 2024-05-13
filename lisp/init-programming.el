@@ -52,7 +52,8 @@
   :interpreter ("~/miniconda3/bin/python3" . python-mode)
   :config
   ;; for debug
-  (require 'dap-python))
+  (require 'dap-python)
+  (setq dap-python-debugger 'debugpy))
 
 (use-package pyvenv
   :ensure t
