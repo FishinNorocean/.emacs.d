@@ -49,7 +49,7 @@
   (set-face-foreground 'git-gutter-fr:modified "#4285F4")
   (set-face-foreground 'git-gutter-fr:deleted "#DB4437")
   (setq git-gutter:update-interval 2)
-  (fringe-mode '(15 . 0))
+  (if (not *is-a-mac*) (fringe-mode '(15 . 0)))
   :hook
   (prog-mode . git-gutter-mode)
   (text-mode . git-gutter-mode)
