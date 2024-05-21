@@ -49,6 +49,7 @@
 (setq enable-remote-dir-locals t)
 
 (global-set-key (kbd "C-x M-b") 'switch-to-buffer)
+(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 (global-set-key (kbd "C-c w") 'swk/web-quick-access)
 ;; (global-set-key (kbd "C-t C-e") 'centaur-tabs--kill-this-buffer-dont-ask)
 
