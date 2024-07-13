@@ -93,6 +93,7 @@
 (global-set-key (kbd "C-r") 'read-only-mode)
 
 (use-package ivy-posframe
+  :disabled
   :ensure t
   :config
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
@@ -641,6 +642,13 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 (require 'init-org)
 (require 'init-stat)
 
+;; emacs web Wowser
+(use-package eww
+  :ensure t
+  :config
+  (setq eww-search-prefix "https://www.google.com/search?q=")
+  (setq eww-download-directory "~/Downloads/"))
+
 ;; rainbow delimiters
 (use-package rainbow-delimiters
   :ensure t
@@ -746,6 +754,10 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
       (auth-source-pick-first-password :host "gptswkser.openai.azure.com")))
    (chatgpt-shell-auth-header (lambda () (format "api-key: %s" (chatgpt-shell-openai-key)))))))
 
+(add-hook 'org-mode-hook (lambda ()
+						   (setq-local electric-pair-inhibit-predicate
+									   `(lambda (c)
+										  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 (provide 'init)
 
 ;;; init.el ends here

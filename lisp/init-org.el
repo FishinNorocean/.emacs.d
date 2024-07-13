@@ -22,6 +22,10 @@
 
 (use-package org
   :config
+  (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
+								"xelatex -interaction nonstopmode %f"))
+  (setq org-latex-default-packages-alist
+		(remove '("AUTO" "inputenc" t) org-latex-default-packages-alist))
   ;; (defun swk/init-org-hook ()
   ;; 	(org-toggle-pretty-entities))
   
@@ -36,9 +40,20 @@
   
   :hook
   (org-mode-hook . (lambda () (visual-line-mode 1)))
+  (org-mode-hook . (lambda () (company-mode 0)))
   (org-mode-hook . yas-minor-mode)
   (org-mode-hook . flyspell-mode)
   (org-mode-hook . captain-mode)
+  (org-mode-hook . (lambda ()
+					 (setq-local electric-pair-inhibit-predicate
+								 `(lambda (c)
+									(if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+  ;; (org-mode-hook . (lambda ()
+  ;;               (define-key python-mode-map "\"" 'electric-pair)
+  ;;               (define-key python-mode-map "\'" 'electric-pair)
+  ;;               (define-key python-mode-map "(" 'electric-pair)
+  ;;               (define-key python-mode-map "[" 'electric-pair)
+  ;;               (define-key python-mode-map "{" 'electric-pair)))
   ;; (org-mode-hook . disable-angle-bracket-in-org-mode)
   ;; (org-mode-hook . swk/init-org-hook)
   )
@@ -144,6 +159,30 @@ SCHEDULED: %t")))
   :ensure t
   :config
   (add-hook 'org-mode-hook 'org-fragtog-mode))
+
+(use-package org-roam
+  :disabled
+  :ensure t
+  :custom
+  (org-roam-directory (file-truename "~/org/roam/"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture))
+         ;; Dailies
+         ;; ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  (org-roam-setup)
+
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (require 'org-roam-export)
+  (org-roam-db-autosync-mode))
+
+  ;; If using org-roam-protocol
+  ;;(require 'org-roam-protocol))
+
 
 (provide 'init-org)
 

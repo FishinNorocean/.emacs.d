@@ -33,3 +33,6 @@ dirvish/*
 mdx-dict/mdx-server/
 *.desktop
 chatgpt/*
+.org-id-locations
+org-roam.db
+

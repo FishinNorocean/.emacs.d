@@ -8,6 +8,7 @@
 
 (use-package centaur-tabs
 		:ensure t
+		:disabled
 		:demand
 		:config
 		(centaur-tabs-mode t)
@@ -38,7 +39,7 @@
 			 (string-prefix-p "*company" name)
 			 (string-prefix-p "*Flycheck" name)
 			 (string-prefix-p "*tramp" name)
-			 (string-prefix-p " *Mini" name)
+			 (string-prefix-p "*Mini" name)
 			 (string-prefix-p "*help" name)
 			 (string-prefix-p "*straight" name)
 			 (string-prefix-p " *temp" name)
@@ -46,6 +47,8 @@
 			 (string-prefix-p "*mybuf" name)
 			 (string-prefix-p "*Calc" name)
 			 (string-prefix-p "*dashboard" name)
+			 (string-prefix-p "*Python" name)
+			 (string-prefix-p "*" name)
 			 ;; Is not magit buffer.
 			 (and (string-prefix-p "magit" name)
 				  (not (file-name-extension name)))
@@ -92,8 +95,8 @@
 		:bind
 		;; ("C-<prior>" . centaur-tabs-backward)
 		;; ("C-<next>" . centaur-tabs-forward)
-		("C-x b" . centaur-tabs-ace-jump)
-		("C-x C-b" . centaur-tabs-counsel-switch-group))
+		("C-c t" . centaur-tabs-ace-jump)
+		("C-c C-t" . centaur-tabs-counsel-switch-group))
 
 
 (use-package dirvish

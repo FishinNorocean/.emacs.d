@@ -25,6 +25,7 @@
   (sml/setup))
 
 (use-package nyan-mode
+  :disabled
   :if (display-graphic-p)
   :ensure t
   :config
