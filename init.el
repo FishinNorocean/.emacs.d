@@ -90,7 +90,13 @@
    :map minibuffer-local-map
    ("C-r" . counsel-minibuffer-history)))
 
-(global-set-key (kbd "C-r") 'read-only-mode)
+;; (global-set-key (kbd "C-r") 'read-only-mode)
+
+(use-package nerd-icons-ivy-rich
+  :ensure t
+  :init
+  (nerd-icons-ivy-rich-mode 1)
+  (ivy-rich-mode 1))
 
 (use-package ivy-posframe
   :disabled
@@ -99,7 +105,7 @@
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
   (setq ivy-posframe-width 80)
   (setq ivy-posframe-height 10)
-  (if (not *is-a-mac*) (setq ivy-posframe-font "MesloLGS NF 12"))
+  (if (not *is-a-mac*) (setq ivy-posframe-font "Monospace 12"))
   ;; (setq ivy-posframe-display-functions-alist
   ;; 		'((swiper          . ivy-posframe-display-at-point)
   ;;         ;(complete-symbol . ivy-posframe-display-at-point)
@@ -293,6 +299,9 @@
   (setq company-require-match nil)
   ;; (setq company-frontends '(company-preview-frontend))
   )
+
+(use-package editorconfig
+  :ensure t)
 
 (require 'copilot)
 (add-hook 'prog-mode-hook 'copilot-mode)

@@ -122,9 +122,9 @@
         '(:left (sort symlink) :right (omit yank index)))
   (if (display-graphic-p)
 	  (setq dirvish-attributes
-        '(all-the-icons file-time file-size collapse subtree-state vc-state git-msg))
+			'(vc-state subtree-state nerd-icons git-msg file-time file-size))
 	(setq dirvish-attributes
-        '(file-time file-size collapse subtree-state vc-state git-msg)))
+        '(file-time file-size collapse vc-state git-msg)))
   (setq delete-by-moving-to-trash t)
   (if *is-a-mac* (setq dired-listing-switches "-l -h")
 	(setq dired-listing-switches
