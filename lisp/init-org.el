@@ -89,7 +89,7 @@
   )
 
 (define-key global-map (kbd "C-c a") 'swk/pop-to-org-agenda-simple)
-(define-key global-map (kbd "C-c d") 'swk/pop-to-org-agenda-day)
+;; (define-key global-map (kbd "C-c d") 'swk/pop-to-org-agenda-day)
 
 (defun air-org-skip-subtree-if-priority (priority)
   "Skip an agenda subtree if it has a priority of PRIORITY.

@@ -90,7 +90,7 @@
    :map minibuffer-local-map
    ("C-r" . counsel-minibuffer-history)))
 
-;; (global-set-key (kbd "C-r") 'read-only-mode)
+(global-set-key (kbd "C-r") nil)
 
 (use-package nerd-icons-ivy-rich
   :ensure t
@@ -181,7 +181,9 @@
 
 (use-package ace-window
   :ensure t
-  :bind (("C-x o" . 'ace-window)))
+  :bind (("C-x o" . 'ace-window))
+  :config
+  (ace-window-display-mode 1))
 
 (use-package meow
   :disabled
@@ -397,17 +399,25 @@
   :ensure t
   :diminish dashboard-mode
   :config
-  (setq dashboard-banner-logo-title "Think good. Do better. Be the best.")
-  (setq dashboard-projects-backend 'projectile)
-  ; (setq dashboard-startup-banner 1)
-  (setq dashboard-startup-banner (expand-file-name "marisa.png" user-emacs-directory))
-  (setq dashboard-items '((recents  . 5)
-						  (projects . 5)
-						  (bookmarks . 3)))
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-footer-messages '("Take good care of yourself."))
-  (setq dashboard-set-file-icons t)
   (dashboard-setup-startup-hook)
+  :custom
+  (dashboard-banner-logo-title "Think good. Do better. Be the best.")
+  (dashboard-projects-backend 'projectile)
+										; (setq dashboard-startup-banner 1)
+  ;; Content is not centered by default. To center, set
+  (dashboard-center-content t)
+  ;; vertically center content
+  (dashboard-vertically-center-content t)
+  (dashboard-startup-banner (expand-file-name "marisa.png" user-emacs-directory))
+  (dashboard-items '((recents  . 5)
+					 (projects . 5)
+					 (agenda . 5)
+					 ))
+  (dashboard-display-icons-p t)     ; display icons on both GUI and terminal
+  (dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-footer-messages '("Take good care of yourself."))
   :bind (:map dashboard-mode-map
          ("d" . 'dirvish)
 		 ; ("n" . 'next-line)
@@ -437,104 +447,106 @@
   :ensure t
   :defer t)
 
-(defun enable-lsp-if-not-remote ()
-  (unless (file-remote-p default-directory) (lsp-deferred)))
+;; (defun enable-lsp-if-not-remote ()
+;;   (unless (file-remote-p default-directory) (lsp-deferred)))
 
 
-;; lsp-mode
-(use-package lsp-mode
-  :ensure t
-  :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l"
-		lsp-file-watch-threshold 500)
-  ;; lsp-prefer-flymake nil)
-  :hook
-  (lsp-mode . lsp-enable-which-key-integration) ; which-key integration
-  :commands (lsp lsp-deferred)
-  :config
-  (setq lsp-completion-provider :none)
-  (setq lsp-headerline-breadcrumb-enable nil)
-  ;; (add-to-list 'lsp-clients-clangd-args "--clang-tidy")
-  :bind
-  ("C-c l s" . lsp-ivy-workspace-symbol))
-  ; :commands lsp
-  ;; :config
-  ;; (lsp-register-client
-  ;;  (make-lsp-client :new-connection (lsp-tramp-connection "pyls")
-  ;; 					:major-modes '(python-mode)
-  ;; 					:remote? t
-  ;; 					:server-id 'pyls-remote))
+;; ;; lsp-mode
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :init
+;;   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+;;   (setq lsp-keymap-prefix "C-c l"
+;; 		lsp-file-watch-threshold 500)
+;;   ;; lsp-prefer-flymake nil)
+;;   :hook
+;;   (lsp-mode . lsp-enable-which-key-integration) ; which-key integration
+;;   :commands (lsp lsp-deferred)
+;;   :config
+;;   (setq lsp-completion-provider :none)
+;;   (setq lsp-headerline-breadcrumb-enable nil)
+;;   ;; (add-to-list 'lsp-clients-clangd-args "--clang-tidy")
+;;   :bind
+;;   ("C-c l s" . lsp-ivy-workspace-symbol))
+;;   ; :commands lsp
+;;   ;; :config
+;;   ;; (lsp-register-client
+;;   ;;  (make-lsp-client :new-connection (lsp-tramp-connection "pyls")
+;;   ;; 					:major-modes '(python-mode)
+;;   ;; 					:remote? t
+;;   ;; 					:server-id 'pyls-remote))
 
-(use-package lsp-ui
-  :ensure t
-  :config
-  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-  (setq lsp-ui-doc-position 'top))
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :config
+;;   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+;;   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+;;   (setq lsp-ui-doc-position 'top))
 
-(use-package lsp-ivy
-  :ensure t
-  :after (lsp-mode))
+;; (use-package lsp-ivy
+;;   :ensure t
+;;   :after (lsp-mode))
 
-(use-package dap-mode
-  :ensure t
-  :after lsp-mode
-  :init (add-to-list 'image-types 'svg)
-  :commands dap-debug
-  :custom
-  (dap-auto-configure-mode t)
-  :hydra
-  (dap-hydra
-   (:color pink :hint nil :foreign-keys run)
-   "
-^Stepping^          ^Switch^                 ^Breakpoints^         ^Debug^                     ^Eval^                      
-^^^^^^^^---------------------------------------------------------------------------------------------------------------
-_n_: Next           _ss_: Session            _bb_: Toggle          _dd_: Debug                 _ee_: Eval                  
-_i_: Step in        _st_: Thread             _bd_: Delete          _dr_: Debug recent          _er_: Eval region
-_o_: Step out       _sf_: Stack frame        _ba_: Add             _dl_: Debug last            _es_: Eval thing at point
-_c_: Continue       _su_: Up stack frame     _bc_: Set condition   _de_: Edit debug template   _ea_: Add expression.
-_r_: Restart frame  _sd_: Down stack frame   _bh_: Set hit count   _ds_: Debug restart
-_Q_: Disconnect     _sl_: List locals        _bl_: Set log message
-                  _sb_: List breakpoints
-                  _se_: List expressions
-"
-   ("n" dap-next)
-   ("i" dap-step-in)
-   ("o" dap-step-out)
-   ("c" dap-continue)
-   ("r" dap-restart-frame)
-   ("ss" dap-switch-session)
-   ("st" dap-switch-thread)
-   ("sf" dap-switch-stack-frame)
-   ("su" dap-up-stack-frame)
-   ("sd" dap-down-stack-frame)
-   ("sl" dap-ui-locals)
-   ("sb" dap-ui-breakpoints)
-   ("se" dap-ui-expressions)
-   ("bb" dap-breakpoint-toggle)
-   ("ba" dap-breakpoint-add)
-   ("bd" dap-breakpoint-delete)
-   ("bc" dap-breakpoint-condition)
-   ("bh" dap-breakpoint-hit-condition)
-   ("bl" dap-breakpoint-log-message)
-   ("dd" dap-debug)
-   ("dr" dap-debug-recent)
-   ("ds" dap-debug-restart)
-   ("dl" dap-debug-last)
-   ("de" dap-debug-edit-template)
-   ("ee" dap-eval)
-   ("ea" dap-ui-expressions-add)
-   ("er" dap-eval-region)
-   ("es" dap-eval-thing-at-point)
-   ("q" nil "quit" :color blue)
-   ("Q" dap-disconnect "Disconnect" :color blue))
-  :config
-  (dap-ui-mode 1)
-  (defun dap-hydra ()
-	(interactive)
-	"Run `dap-hydra/body'."
-	(dap-hydra/body)))
+;; (use-package dap-mode
+;;   :ensure t
+;;   :after lsp-mode
+;;   :init (add-to-list 'image-types 'svg)
+;;   :commands dap-debug
+;;   :custom
+;;   (dap-auto-configure-mode t)
+;;   :hydra
+;;   (dap-hydra
+;;    (:color pink :hint nil :foreign-keys run)
+;;    "
+;; ^Stepping^          ^Switch^                 ^Breakpoints^         ^Debug^                     ^Eval^
+;; ^^^^^^^^---------------------------------------------------------------------------------------------------------------
+;; _n_: Next           _ss_: Session            _bb_: Toggle          _dd_: Debug                 _ee_: Eval
+;; _i_: Step in        _st_: Thread             _bd_: Delete          _dr_: Debug recent          _er_: Eval region
+;; _o_: Step out       _sf_: Stack frame        _ba_: Add             _dl_: Debug last            _es_: Eval thing at point
+;; _c_: Continue       _su_: Up stack frame     _bc_: Set condition   _de_: Edit debug template   _ea_: Add expression.
+;; _r_: Restart frame  _sd_: Down stack frame   _bh_: Set hit count   _ds_: Debug restart
+;; _Q_: Disconnect     _sl_: List locals        _bl_: Set log message
+;;                   _sb_: List breakpoints
+;;                   _se_: List expressions
+;; "
+;;    ("n" dap-next)
+;;    ("i" dap-step-in)
+;;    ("o" dap-step-out)
+;;    ("c" dap-continue)
+;;    ("r" dap-restart-frame)
+;;    ("ss" dap-switch-session)
+;;    ("st" dap-switch-thread)
+;;    ("sf" dap-switch-stack-frame)
+;;    ("su" dap-up-stack-frame)
+;;    ("sd" dap-down-stack-frame)
+;;    ("sl" dap-ui-locals)
+;;    ("sb" dap-ui-breakpoints)
+;;    ("se" dap-ui-expressions)
+;;    ("bb" dap-breakpoint-toggle)
+;;    ("ba" dap-breakpoint-add)
+;;    ("bd" dap-breakpoint-delete)
+;;    ("bc" dap-breakpoint-condition)
+;;    ("bh" dap-breakpoint-hit-condition)
+;;    ("bl" dap-breakpoint-log-message)
+;;    ("dd" dap-debug)
+;;    ("dr" dap-debug-recent)
+;;    ("ds" dap-debug-restart)
+;;    ("dl" dap-debug-last)
+;;    ("de" dap-debug-edit-template)
+;;    ("ee" dap-eval)
+;;    ("ea" dap-ui-expressions-add)
+;;    ("er" dap-eval-region)
+;;    ("es" dap-eval-thing-at-point)
+;;    ("q" nil "quit" :color blue)
+;;    ("Q" dap-disconnect "Disconnect" :color blue))
+;;   :config
+;;   (dap-ui-mode 1)
+;;   (defun dap-hydra ()
+;; 	(interactive)
+;; 	"Run `dap-hydra/body'."
+;; 	(dap-hydra/body)))
+
+(require 'init-programming)
 
 (use-package treemacs
   :disabled
@@ -584,7 +596,7 @@ _Q_: Disconnect     _sl_: List locals        _bl_: Set log message
   :bind
   (:map yas-minor-mode-map ("C-<tab>" . yas-expand)))
 
-(yas-global-mode)
+;; (yas-global-mode)
 
 (use-package yasnippet-snippets
   :ensure t
@@ -647,8 +659,9 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 
 
 
-(require 'init-programming)
+
 (require 'init-org)
+(require 'init-markdown)
 (require 'init-stat)
 
 ;; emacs web Wowser
@@ -669,10 +682,10 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   (global-undo-tree-mode)
   :custom
   (undo-tree-auto-save-history nil))
-;; (if *is-a-mac* 
+;; (if *is-a-mac*
 ;;     (use-package undo-tree
 ;;       :ensure t
-;;       :config 
+;;       :config
 ;;       (global-undo-tree-mode)
 ;;       :after hydra
 ;;       :hydra (hydra-undo-tree (:hint nil)
@@ -690,7 +703,7 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 ;;       (undo-tree-auto-save-history nil))
 ;;   (use-package undo-tree
 ;;     :ensure t
-;;     :config 
+;;     :config
 ;;     (global-undo-tree-mode)))
 
 (global-set-key (kbd "C-x u") 'undo-tree-visualize)
@@ -714,10 +727,9 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
   )
 
 (use-package google-this
+  :disabled
   :if (display-graphic-p)
   :ensure t
-  :init
-  (google-this-mode)
   :config
   (global-set-key (kbd "C-c g") 'google-this))
 
@@ -735,7 +747,7 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
       (progn
         (delete-char -2)
         (evil-normal-state))))
-  (define-key evil-insert-state-map "j" 'my-evil-escape)) 
+  (define-key evil-insert-state-map "j" 'my-evil-escape))
 
 ;; (define-key evil-insert-state-map "j" 'my-evil-escape)
 
