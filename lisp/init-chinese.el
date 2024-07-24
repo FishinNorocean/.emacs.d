@@ -17,6 +17,13 @@
 
 ;(setq cns-debug nil) ; disable debug output, default is t
 
+(use-package cnfonts
+  :ensure t
+  :config
+  (cnfonts-mode 1)
+  (define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
+  (define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
+  )
 
 (provide 'init-chinese)
 ;;; init-chinese.el ends here
