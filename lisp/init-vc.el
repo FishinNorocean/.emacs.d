@@ -12,15 +12,18 @@
 ;;; Setting up the fringe
 
 (use-package fringe-helper
+  :disabled
   :ensure t
   :config
-  (defconst doom-fringe-size '3 "Default fringe width")
+  (defconst doom-fringe-size '14 "Default fringe width")
   ;; switches order of fringe and margin
   (setq-default fringes-outside-margins t)
   ;; standardize fringe width
   (fringe-mode doom-fringe-size)
   (push `(left-fringe  . ,doom-fringe-size) default-frame-alist)
   (push `(right-fringe . ,doom-fringe-size) default-frame-alist))
+
+(set-fringe-style  '(12 . 8))
 
 ;;; Setting up git-gutter
 

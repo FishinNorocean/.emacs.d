@@ -3,7 +3,7 @@
 ;;; Code:
 
 (setq confirm-kill-emacs #'yes-or-no-p)
-
+(set-selection-coding-system 'utf-8)
 (setq-default tab-width 4)
 (electric-pair-mode t)
 (setq initial-scratch-message "Rock\'n\'Roll ain't noise pollution.")
