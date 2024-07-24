@@ -82,8 +82,8 @@
   ;; ;; Variables configured via the interactive 'customize' interface
   )
 
-(if *is-a-mac* (set-frame-font "MesloLGS NF 16")
-  (set-frame-font "Monospace 14"))
+;; (if *is-a-mac* (set-frame-font "MesloLGS NF 16")
+;;   (set-frame-font "Monospace 14"))
 
 (when (file-exists-p custom-file)
   (load custom-file))

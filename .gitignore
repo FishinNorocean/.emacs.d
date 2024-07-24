@@ -35,4 +35,4 @@ mdx-dict/mdx-server/
 chatgpt/*
 .org-id-locations
 org-roam.db
-
+custom*.el
