@@ -12,6 +12,7 @@
 	(error "Your Emacs is too old -- this config requires v%s or higher" minver)))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "mdx-dict" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "copilot" user-emacs-directory))
 (setenv "EMACS_ZSH" "true")
@@ -662,6 +663,7 @@ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cu
 
 (require 'init-org)
 (require 'init-markdown)
+(require 'init-chinese)
 (require 'init-stat)
 
 ;; emacs web Wowser

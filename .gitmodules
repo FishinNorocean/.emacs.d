@@ -1,3 +1,9 @@
 [submodule "copilot"]
 	path = copilot
 	url = git@github.com:copilot-emacs/copilot.el.git
+[submodule "site-lisp/jieba"]
+	path = site-lisp/jieba
+	url = git@github.com:cireu/jieba.el.git
+[submodule "site-lisp/emacs-chinese-word-segmentation"]
+	path = site-lisp/emacs-chinese-word-segmentation
+	url = git@github.com:kanglmf/emacs-chinese-word-segmentation.git
