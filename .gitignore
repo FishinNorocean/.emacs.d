@@ -37,3 +37,4 @@ chatgpt/*
 org-roam.db
 custom*.el
 cnfonts/*
+url/*

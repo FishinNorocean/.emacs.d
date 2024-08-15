@@ -309,6 +309,7 @@
 (require 'copilot)
 (add-hook 'prog-mode-hook 'copilot-mode)
 (define-key prog-mode-map (kbd "C-<return>") 'copilot-accept-completion)
+(define-key prog-mode-map (kbd "M-<return>") 'copilot-accept-completion-by-line)
 
 (use-package company-box
   :ensure t
